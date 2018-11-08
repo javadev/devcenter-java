@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* HelloWorld
+web:    java -Dfile.encoding=UTF-8 -cp target/classes:target/dependency/* HelloWorld
