@@ -31,7 +31,13 @@ public class HelloWorld extends HttpServlet {
         if (response.getStatus() == 301) {
             response = U.fetch(response.getHeaderFields().get("Location").get(0));
         }
-        html.add(response.text());
+        if (response.getStatus() == 200) {
+            html.add(response.text());
+        } else {
+            Map<String, Object> error = new LinkedHashMap<>();
+            error.put("message", "Error " + response.getStatus() + " while loading url: " + url);
+            html.add(url.endsWith("xml") ? U.toXml(error) : U.toJson(error));
+        }
         json.put("html", html);
         builder.append(U.toJson(json)).append("\n)");
         resp.setHeader("Content-Length", "" + builder.length());
