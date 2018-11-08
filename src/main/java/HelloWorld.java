@@ -23,8 +23,8 @@ public class HelloWorld extends HttpServlet {
         StringBuilder builder = new StringBuilder();
         builder.append(callback).append("(\n");
         final Map<String, Object> json = new LinkedHashMap<>();
-        json.put("server", "www.ddginc-usa.com");
-        json.put("remote_host", "95.132.175.241");
+        json.put("server", "xml-json.herokuapp.com");
+        json.put("remote_host", req.getRemoteAddr());
         json.put("url", url);
         final List<String> html = new ArrayList<>();
         html.add(U.fetch(url).text());
