@@ -10,6 +10,7 @@ public class HelloWorld extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         resp.setHeader("Content-Type", "text/javascript");
+        resp.setHeader("Server", "Microsoft-IIS/10.0");
         resp.setCharacterEncoding("UTF-8");
         final String callback = req.getParameter("callback");
         final String url = req.getParameter("url");
