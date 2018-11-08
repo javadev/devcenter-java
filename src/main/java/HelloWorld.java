@@ -10,7 +10,8 @@ public class HelloWorld extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         resp.getWriter().print("Hello from Java!\n");
-        resp.setHeader("Content-Type", "text/javascript;charset=UTF-8");
+        resp.setHeader("Content-Type", "text/javascript");
+        resp.setCharacterEncoding("UTF-8");
     }
 
     public static void main(String[] args) throws Exception{
