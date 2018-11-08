@@ -27,7 +27,11 @@ public class HelloWorld extends HttpServlet {
         json.put("remote_host", req.getRemoteAddr());
         json.put("url", url);
         final List<String> html = new ArrayList<>();
-        html.add(U.fetch(url).text());
+        U.FetchResponse response = U.fetch(url);
+        if (response.getStatus() == 301) {
+            response = U.fetch(response.getHeaderFields().get("Location").get(0));
+        }
+        html.add(response.text());
         json.put("html", html);
         builder.append(U.toJson(json)).append("\n)");
         resp.setHeader("Content-Length", "" + builder.length());
