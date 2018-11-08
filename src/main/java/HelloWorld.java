@@ -11,7 +11,9 @@ public class HelloWorld extends HttpServlet {
             throws ServletException, IOException {
         resp.setHeader("Content-Type", "text/javascript");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().print("Hello from Java!\n");
+        final String callback = req.getParameter("callback");
+        final String url = req.getParameter("url");
+        resp.getWriter().print("Hello from Java!\n" + " - callback=" + callback + " - url=" + url);
     }
 
     public static void main(String[] args) throws Exception{
