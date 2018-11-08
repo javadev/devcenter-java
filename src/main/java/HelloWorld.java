@@ -40,7 +40,7 @@ public class HelloWorld extends HttpServlet {
         }
         json.put("html", html);
         builder.append(U.toJson(json)).append("\n)");
-        resp.setHeader("Content-Length", "" + builder.length());
+        resp.setHeader("Content-Length", "" + builder.toString().getBytes().length);
         resp.getWriter().print(builder.toString());
     }
 
