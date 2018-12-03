@@ -27,15 +27,21 @@ public class HelloWorld extends HttpServlet {
         json.put("remote_host", req.getRemoteAddr());
         json.put("url", url);
         final List<String> html = new ArrayList<>();
-        U.FetchResponse response = U.fetch(url);
-        if (response.getStatus() == 301) {
-            response = U.fetch(response.getHeaderFields().get("Location").get(0));
-        }
-        if (response.getStatus() == 200) {
-            html.add(response.text());
-        } else {
+        try {
+            U.FetchResponse response = U.fetch(url);
+            if (response.getStatus() == 301) {
+                response = U.fetch(response.getHeaderFields().get("Location").get(0));
+            }
+            if (response.getStatus() == 200) {
+                html.add(response.text());
+            } else {
+                Map<String, Object> error = new LinkedHashMap<>();
+                error.put("message", "Error " + response.getStatus() + " while loading url: " + url);
+                html.add(url.endsWith("xml") ? U.toXml(error) : U.toJson(error));
+            }
+        } catch (Exception ex) {
             Map<String, Object> error = new LinkedHashMap<>();
-            error.put("message", "Error " + response.getStatus() + " while loading url: " + url);
+            error.put("message", "Error " + ex.getMessage() + " while loading url: " + url);
             html.add(url.endsWith("xml") ? U.toXml(error) : U.toJson(error));
         }
         json.put("html", html);
