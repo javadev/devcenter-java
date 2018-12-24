@@ -18,8 +18,8 @@ public class HelloWorld extends HttpServlet {
         resp.setHeader("Cache-Control", "no-cache, must-revalidate");
         resp.setHeader("Server", "Microsoft-IIS/10.0");
         resp.setCharacterEncoding("UTF-8");
-        final String callback = req.getParameter("callback");
-        final String url = req.getParameter("url");
+        final String callback = req.getParameter("callback") == null ? "" : req.getParameter("callback");
+        final String url = req.getParameter("url") == null ? "" : req.getParameter("url");
         StringBuilder builder = new StringBuilder();
         builder.append(callback).append("(\n");
         final Map<String, Object> json = new LinkedHashMap<>();
